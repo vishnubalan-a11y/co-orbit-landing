@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Co-orbit Kakkanad Coworking</title>
+<meta name="description" content="Reserve a hot desk, dedicated desk, private cabin, meeting room, conference room or seminar hall at Co-orbit, Kakkanad, Kochi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Palette: obsidian black, ice grey, Co-orbit orange (from the logo dot, pushed a little brighter). Layout idea: enquiry form in glass beside the headline, then glass space cards over blurred ambient light. */
+:root{
+  --bg:#111217;
+  --ink:#dfe5eb;
+  --muted:#9ca5b4;
+  --accent:#ff8a5b;
+  --accent-hi:#ffa27c;
+  --on-accent:#1f0d05;
+  --glass:rgba(223,229,235,.07);
+  --glass-strong:rgba(223,229,235,.11);
+  --glass-line:rgba(223,229,235,.17);
+  --field:rgba(17,18,23,.55);
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'Plus Jakarta Sans','Segoe UI',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+/* ambient light so the glass has something to blur */
+.ambient{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.ambient i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.ambient .o1{width:520px;height:520px;background:var(--accent);top:520px;right:-120px;opacity:.28}
+.ambient .o2{width:460px;height:460px;background:#dfe5eb;top:1300px;left:-160px;opacity:.10}
+.ambient .o3{width:560px;height:560px;background:var(--accent);top:2300px;right:-200px;opacity:.20}
+.ambient .o4{width:480px;height:480px;background:#dfe5eb;top:3300px;left:-120px;opacity:.10}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.eyebrow{font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+.glass{background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 24px 60px rgba(0,0,0,.35)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid var(--glass-line);background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--ink);cursor:pointer;font-family:var(--body);transition:transform .2s,border-color .2s,box-shadow .2s,background .2s}
+.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent);-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.primary:hover{background:var(--accent-hi);box-shadow:0 8px 34px rgba(255,138,91,.45)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(17,18,23,.55);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border-bottom:1px solid var(--glass-line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo img{height:42px;width:auto;display:block}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font-size:14.5px;font-weight:500;color:var(--muted)}
+.nav ul a{text-decoration:none}
+.nav ul a:hover{color:var(--ink)}
+.nav .right{display:flex;align-items:center;gap:16px}
+.nav .tel{font-size:14.5px;font-weight:500;text-decoration:none;color:var(--muted)}
+.nav .btn{padding:10px 20px;font-size:14px}
+
+/* hero */
+.hero{position:relative;padding:52px 0 60px;isolation:isolate;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:url(steps-dark.jpg) center/cover no-repeat;-webkit-mask-image:linear-gradient(#000 68%,transparent);mask-image:linear-gradient(#000 68%,transparent)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(17,18,23,.95) 0%,rgba(17,18,23,.7) 50%,rgba(17,18,23,.45) 100%)}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,76px);margin:18px 0 20px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{font-size:17.5px;color:#c4ccd7;max-width:520px}
+.proof{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:11px;font-size:15.5px;font-weight:500}
+.proof li{display:flex;align-items:center;gap:12px}
+.proof li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);flex:none}
+.strip{display:flex;gap:10px;margin-top:30px;align-items:center}
+.strip img{width:104px;height:78px;object-fit:cover;border-radius:14px;border:1px solid var(--glass-line)}
+.strip span{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:8px}
+
+/* form card */
+.fcard{position:relative;border-radius:26px;padding:28px;background:linear-gradient(160deg,rgba(223,229,235,.14),rgba(223,229,235,.05));border:1px solid rgba(223,229,235,.22);-webkit-backdrop-filter:blur(26px) saturate(160%);backdrop-filter:blur(26px) saturate(160%);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 34px 90px rgba(0,0,0,.5)}
+.fcard.flash{animation:flash 1.2s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(255,138,91,.7),0 34px 90px rgba(0,0,0,.5)}100%{box-shadow:0 0 0 26px rgba(255,138,91,0),0 34px 90px rgba(0,0,0,.5)}}
+.fcard h2{font-size:26px}
+.fcard .sub{color:#b9c1cd;font-size:14.5px;margin:8px 0 20px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.fld{display:grid;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#b3bcc9}
+input,select,textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--field);border:1px solid var(--glass-line);border-radius:12px;padding:12px 13px;min-width:0}
+input::placeholder{color:#7d8695}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,138,91,.22)}
+select option{background:#1a1c23;color:var(--ink)}
+textarea{resize:vertical;min-height:70px}
+input[type=date]{color-scheme:dark}
+.err{color:#ffa3a3;font-size:12.5px}
+.more{grid-column:1/-1}
+.more summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--accent);list-style:none;padding:2px 0}
+.more summary::-webkit-details-marker{display:none}
+.more summary::before{content:"+ "}
+.more[open] summary::before{content:"− "}
+.more .inner{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:12px}
+form .btn{width:100%;padding:16px;font-size:16px}
+.fnote{grid-column:1/-1;font-size:13px;color:#aab3c0;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+.fnote a{color:var(--ink);font-weight:600}
+.result{grid-column:1/-1;display:none;gap:12px;border:1px solid rgba(255,138,91,.5);background:rgba(255,138,91,.09);border-radius:14px;padding:14px}
+.result.show{display:grid}
+.result p{font-size:14px}
+.result .row{display:flex;flex-wrap:wrap;gap:8px}
+.result .btn{padding:10px 16px;font-size:14px;flex:1 1 auto;width:auto}
+
+/* sections */
+section{padding:84px 0}
+.sec-head{display:grid;gap:14px;max-width:700px;margin-bottom:38px}
+.sec-head h2{font-size:clamp(30px,4vw,48px)}
+.sec-head p{color:var(--muted);font-size:17px}
+
+/* space cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.scard{border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;padding:10px}
+.scard:hover{transform:translateY(-4px);border-color:rgba(223,229,235,.32)}
+.scard.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 24px 60px rgba(255,138,91,.18)}
+.sph{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:15px;background:rgba(223,229,235,.06)}
+.sph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.scard:hover .sph img{transform:scale(1.05)}
+.sph .addr{position:absolute;inset:0;display:grid;place-content:center;gap:8px;text-align:center;padding:20px;background:radial-gradient(circle at 50% 40%,rgba(255,138,91,.25),transparent 62%),rgba(223,229,235,.05)}
+.sph .addr svg{width:44px;height:44px;margin:auto;stroke:var(--accent);fill:none;stroke-width:1.5}
+.sph .addr b{font-weight:600;font-size:15px}
+.sph .addr span{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.badge{position:absolute;right:12px;top:12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:none}
+.scard.sel .badge{display:block}
+.sbody{padding:16px 10px 10px;display:grid;gap:12px;flex:1;align-content:start}
+.sbody .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sbody h3{font-size:22px}
+.sbody .tag{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.sbody p{color:#b9c1cd;font-size:14.5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.tags li{font-size:12.5px;font-weight:500;padding:5px 11px;border-radius:999px;border:1px solid var(--glass-line);color:var(--ink);background:rgba(223,229,235,.06)}
+.sbody .btn{margin-top:4px;width:100%}
+
+/* facilities */
+.fac-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fac{border-radius:20px;padding:22px}
+.fac h3{font-size:12.5px;font-family:var(--body);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.fac ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+.fac li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500}
+.fac li svg{width:22px;height:22px;flex:none;stroke:var(--ink);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:240px 240px;gap:14px}
+.gal img{width:100%;height:100%;object-fit:cover;border-radius:20px;border:1px solid var(--glass-line);display:block}
+.gal .a{grid-row:1/3}
+.gal .b{grid-column:2/4}
+.atmo-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.atmo-head h2{font-size:clamp(30px,4.2vw,52px);max-width:640px}
+
+/* final cta */
+.final{border-radius:28px;padding:46px;display:grid;grid-template-columns:1.2fr auto;gap:24px;align-items:center;background:linear-gradient(120deg,rgba(255,138,91,.2),rgba(223,229,235,.06) 60%);border:1px solid rgba(223,229,235,.2);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+.final h2{font-size:clamp(28px,3.8vw,44px)}
+.final p{color:#c0c8d3;margin-top:10px}
+.final .acts{display:flex;gap:10px;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--glass-line);padding:44px 0 100px;color:var(--muted);font-size:14.5px;background:rgba(17,18,23,.5)}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+footer h4{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;color:var(--ink)}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--ink)}
+footer .logo img{height:46px;margin-bottom:12px}
+
+.mbar{display:none}
+
+@media (max-width:980px){
+  .hero .grid{grid-template-columns:1fr;gap:28px}
+  .strip{display:none}
+  .cards{grid-template-columns:1fr 1fr}
+  .fac-groups{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px}
+  .gal .a{grid-row:auto}.gal .b{grid-column:auto}
+  .final{grid-template-columns:1fr;padding:30px}
+  footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  section{padding:60px 0}
+  .hero{padding:28px 0 36px}
+  .nav ul,.nav .tel{display:none}
+  .nav .btn{display:none}
+  .cards{grid-template-columns:1fr}
+  .fac-groups{grid-template-columns:1fr}
+  .fcard{padding:22px 16px}
+  form,.more .inner{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+  .mbar{display:grid;grid-template-columns:1fr 1.5fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px;background:rgba(17,18,23,.7);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-top:1px solid var(--glass-line)}
+  .mbar .btn{padding:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass,.fcard,.final{background:rgba(32,34,42,.92)}
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i><i class="o4"></i></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Co-orbit home"><img src="logo-white.png" alt="Co-orbit"></a>
+    <ul>
+      <li><a href="#spaces">Spaces</a></li>
+      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+    <div class="right">
+      <a class="tel" href="tel:+918089292421">+91 80892 92421</a>
+      <a class="btn primary" href="#enquire" data-go-form>Reserve my space</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding-bottom:60px">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Coworking · Kakkanad, Kochi</div>
+      <h1>Where you sit changes your <em>work vibe.</em></h1>
+      <p class="lede">Hot desks, private cabins, meeting rooms and a seminar hall on bright floors with city views. Tell us what you need and we will confirm availability and pricing.</p>
+      <ul class="proof">
+        <li>Access card entry and CCTV on site</li>
+        <li>Power backup, so work never stops</li>
+        <li>Fast Wi-Fi, Ethernet port and VPN provision</li>
+      </ul>
+      <div class="strip" aria-hidden="true">
+        <img src="tealbar.jpg" alt="">
+        <img src="desks.jpg" alt="">
+        <img src="boardroom.jpg" alt="">
+        <span>Real floors, Kakkanad</span>
+      </div>
+    </div>
+
+    <div class="fcard" id="enquire">
+      <h2>Reserve your space</h2>
+      <p class="sub">Takes 30 seconds. We reply with open spaces and a quote.</p>
+      <form id="enqForm" novalidate>
+        <div class="fld"><label for="fName">Full name</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName"></span></div>
+        <div class="fld"><label for="fPhone">Phone / WhatsApp</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91" required><span class="err" id="ePhone"></span></div>
+        <div class="fld"><label for="fSpace">Space you want</label><select id="fSpace" name="space"></select></div>
+        <div class="fld"><label for="fTeam">Team size</label>
+          <select id="fTeam" name="team"><option>Just me</option><option>2 to 5</option><option>6 to 15</option><option>16 to 40</option><option>40+</option></select></div>
+        <details class="more">
+          <summary>Add email, company or a note</summary>
+          <div class="inner">
+            <div class="fld"><label for="fEmail">Work email</label><input id="fEmail" name="email" type="email" autocomplete="email"><span class="err" id="eEmail"></span></div>
+            <div class="fld"><label for="fCompany">Company</label><input id="fCompany" name="company" autocomplete="organization"></div>
+            <div class="fld"><label for="fStart">Planning to start</label>
+              <select id="fStart" name="start"><option>This week</option><option selected>This month</option><option>In 1 to 3 months</option><option>Just exploring</option></select></div>
+            <div class="fld"><label for="fDate">Preferred visit day</label><input id="fDate" name="date" type="date"></div>
+            <div class="fld" style="grid-column:1/-1"><label for="fMsg">Anything else</label><textarea id="fMsg" name="msg"></textarea></div>
+          </div>
+        </details>
+        <div class="fld full"><button class="btn primary" type="submit">Reserve my space</button></div>
+        <div class="result" id="result" role="status" aria-live="polite">
+          <p id="resultMsg"></p>
+          <div class="row">
+            <a class="btn primary" id="waLink" href="#" target="_blank" rel="noopener">Send on WhatsApp</a>
+            <a class="btn" id="mailLink" href="#">Send by email</a>
+            <button class="btn" type="button" id="copyBtn">Copy</button>
+          </div>
+        </div>
+        <div class="fnote"><span>Prefer to talk? <a href="tel:+918089292421">+91 80892 92421</a></span><span>We use your details only to reply.</span></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="spaces" style="padding-top:30px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Choose your space</div>
+      <h2>Seven ways to work at Co-orbit</h2>
+      <p>Pick the space that fits your day. Choose Reserve this space and your pick is filled into the form for you.</p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<section id="facilities">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Facilities</div>
+      <h2>Everything a working day runs on</h2>
+      <p>Security, rooms, connectivity and comfort are covered, so your team starts work the moment it walks in.</p>
+    </div>
+    <div class="fac-groups" id="facGroups"></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="atmo-head">
+      <div><div class="eyebrow" style="margin-bottom:14px">Atmosphere matters</div><h2>Serving you with the best work ambience</h2></div>
+      <a class="btn" href="#enquire" data-go-form>Reserve my space</a>
+    </div>
+    <div class="gal">
+      <img class="a" src="boardroom-tall.jpg" alt="Conference room with a long table, eight chairs and a feature ceiling" loading="lazy">
+      <img class="b" src="cabins.jpg" alt="Private cabin with six desks and a frosted glass door" loading="lazy">
+      <img src="meeting2.jpg" alt="Round-table meeting room with a wall-mounted display" loading="lazy">
+      <img src="steps.jpg" alt="Tiered wooden seating along floor-to-ceiling windows" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="final">
+      <div>
+        <h2>Your desk is waiting in Kakkanad</h2>
+        <p>Tell us what you need and get pricing for the space you want.</p>
+      </div>
+      <div class="acts">
+        <a class="btn primary" href="#enquire" data-go-form>Reserve my space</a>
+        <a class="btn" href="tel:+918089292421">Call +91 80892 92421</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#top"><img src="logo-white.png" alt="Co-orbit"></a>
+      <p>Space to let you fall for your work.<br>Seaport Airport Road, Kakkanad, Kochi.<br><a href="mailto:marketing@co-orbit.com">marketing@co-orbit.com</a></p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="https://www.co-orbit.com/products">Products</a></li>
+        <li><a href="https://www.co-orbit.com/facilities">Facilities</a></li>
+        <li><a href="https://www.co-orbit.com/events">Events</a></li>
+        <li><a href="https://www.co-orbit.com/faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/co_orbit">Instagram</a></li>
+        <li><a href="https://www.facebook.com/coorbit">Facebook</a></li>
+        <li><a href="https://www.co-orbit.com/privacy">Privacy policy</a></li>
+        <li><a href="https://www.co-orbit.com/terms">Terms of service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn" href="tel:+918089292421">Call</a>
+  <a class="btn primary" href="#enquire" data-go-form>Reserve my space</a>
+</div>
+
+<script>
+const SPACES = [
+  {name:'Hot Desk', tag:'Flexible seating', photo:'tealbar.jpg',
+   blurb:'Open-office seating for remote workers, freelancers and writers. Choose any free seat, plug in and work among other people.',
+   inc:['Fast Wi-Fi','Tea and coffee','Pantry space']},
+  {name:'Dedicated Desk', tag:'Your own desk', photo:'desks.jpg',
+   blurb:'A personal desk with room to keep your work materials and files, so your setup is ready every morning.',
+   inc:['Locker room','Access card','Ethernet port']},
+  {name:'Private Cabin', tag:'Private office', photo:'cabins2.jpg',
+   blurb:'A separate cabin for your team with its own door, so you can run calls, store equipment and build your own culture.',
+   inc:['Dedicated landline','VPN provision','Ethernet port']},
+  {name:'Meeting Room', tag:'Book by the hour', photo:'meeting.jpg',
+   blurb:'A quiet round-table room for client calls, interviews and team huddles, with a display for sharing screens.',
+   inc:['Video conference','Tea and coffee','Fast Wi-Fi']},
+  {name:'Conference Room', tag:'Boardroom', photo:'boardroom.jpg',
+   blurb:'A glass-fronted boardroom for larger reviews and presentations, set up for remote participants with video conferencing.',
+   inc:['Video conference','Printer and scanner','Fast Wi-Fi']},
+  {name:'Seminar Hall', tag:'Events and training', photo:'steps.jpg',
+   blurb:'Tiered seating facing the city skyline for workshops, trainings, product launches and community meetups.',
+   inc:['Tiered seating','Power backup','Cafeteria space']},
+  {name:'Virtual Office', tag:'Address, no desk', photo:'',
+   blurb:'A business presence at Co-orbit, Seaport Airport Road, Kakkanad, without renting a desk. Ask us what is included.',
+   inc:['Kakkanad address','Enquire for details']}
+];
+const FAC = [
+  {g:'Security', items:[['Access card','M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z'],['CCTV','M3 8l12-3 2 5-12 3zM15 10l5 2M8 14l1 5h4']]},
+  {g:'Rooms', items:[['Seminar hall','M3 5h18v10H3zM12 15v5M8 20h8'],['Conference room','M3 6h18v8H3zM6 18h12M12 14v4'],['Meeting room','M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2 21a7 7 0 0 1 14 0M17 4a3.5 3.5 0 0 1 0 7M18 14a7 7 0 0 1 4 7'],['Manager’s cabin','M4 4h16v16H4zM9 20v-6h6v6'],['Phone booth','M6 3h12v18H6zM14 12h.01'],['Locker room','M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4']]},
+  {g:'Office services', items:[['Printer with scanner','M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z'],['Video conference','M3 6h12v12H3zM15 10l6-3v10l-6-3'],['Dedicated landline','M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2']]},
+  {g:'Connectivity', items:[['Fast Wi-Fi','M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01'],['Ethernet port','M7 3v6h10V3M5 9h14v5a7 7 0 0 1-14 0zM12 17v4'],['VPN provision','M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18']]},
+  {g:'Comfort and food', items:[['Pantry space','M4 10h16v10H4zM4 10l2-6h12l2 6'],['Tea and coffee','M4 8h13v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM17 9h2a2 2 0 0 1 0 5h-2M7 3v2M11 3v2'],['Cafeteria space','M6 3v8M9 3v8M6 7h3M7.5 11v10M17 3c-2 2-2 7 0 9v9'],['Gymnasium','M2 9v6M5 6v12M19 6v12M22 9v6M5 12h14']]},
+  {g:'Infrastructure', items:[['Power backup','M13 2L4 14h7l-1 8 9-12h-7z'],['Car parking','M3 14l2-6h14l2 6v4h-3v-2H6v2H3zM6 14h12']]}
+];
+
+const $ = function(s){ return document.querySelector(s); };
+const CONFIG = { whatsapp:'918089292421', email:'marketing@co-orbit.com', endpoint:'https://script.google.com/macros/s/AKfycby62zpzWlq8pyby9m3MfK1TLLbW-cYypDvQ01j8zYLr6MLbYuPc2mwdOOXgz76tPReSgg/exec' }; /* endpoint = Google Sheets enquiry log (Apps Script web app) */
+const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+$('#facGroups').innerHTML = FAC.map(function(f){
+  return '<div class="fac glass"><h3>'+f.g+'</h3><ul>'+f.items.map(function(i){
+    return '<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+i[1]+'"/></svg>'+i[0]+'</li>';
+  }).join('')+'</ul></div>';
+}).join('');
+
+$('#cards').innerHTML = SPACES.map(function(s, i){
+  const media = s.photo
+    ? '<img src="'+s.photo+'" alt="'+s.name+' at Co-orbit Kakkanad" loading="lazy">'
+    : '<div class="addr"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><b>Seaport Airport Road, Kakkanad</b><span>Your business address</span></div>';
+  return '<article class="scard glass" data-i="'+i+'">'
+    + '<div class="sph">'+media+'<span class="badge">Selected</span></div>'
+    + '<div class="sbody"><div class="top"><h3>'+s.name+'</h3><span class="tag">'+s.tag+'</span></div>'
+    + '<p>'+s.blurb+'</p>'
+    + '<ul class="tags">'+s.inc.map(function(t){ return '<li>'+t+'</li>'; }).join('')+'</ul>'
+    + '<button class="btn primary" data-book="'+i+'">Reserve this space</button></div></article>';
+}).join('');
+$('#fSpace').innerHTML = SPACES.map(function(s){ return '<option>'+s.name+'</option>'; }).join('') + '<option>Not sure yet</option>';
+$('#fSpace').value = 'Not sure yet';
+
+function markSelected(){
+  const v = $('#fSpace').value;
+  document.querySelectorAll('.scard').forEach(function(c){ c.classList.toggle('sel', SPACES[+c.dataset.i].name === v); });
+}
+$('#fSpace').addEventListener('change', markSelected);
+function goForm(focus){
+  const f = $('#enquire');
+  f.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  f.classList.remove('flash'); void f.offsetWidth; f.classList.add('flash');
+  if (focus) setTimeout(function(){ try { $('#fName').focus({preventScroll:true}); } catch(e){} }, 450);
+}
+document.addEventListener('click', function(e){
+  const g = e.target.closest('[data-go-form]');
+  if (g) { e.preventDefault(); goForm(true); return; }
+  const b = e.target.closest('[data-book]');
+  if (b) { $('#fSpace').value = SPACES[+b.dataset.book].name; markSelected(); goForm(true); }
+});
+
+/* enquiry */
+const form = $('#enqForm');
+(function(){ const d = new Date(); d.setDate(d.getDate()+1); $('#fDate').min = d.toISOString().slice(0,10); })();
+function val(id){ return $('#'+id).value.trim(); }
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  let ok = true;
+  const phoneDigits = val('fPhone').replace(/\D/g,'');
+  $('#eName').textContent = val('fName') ? '' : 'Enter your name.'; if(!val('fName')) ok = false;
+  $('#ePhone').textContent = phoneDigits.length>=10 ? '' : 'Use at least 10 digits.'; if(phoneDigits.length<10) ok = false;
+  const em = val('fEmail'), emOk = !em || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em);
+  $('#eEmail').textContent = emOk ? '' : 'Check the email address.'; if(!emOk){ ok = false; $('.more').open = true; }
+  if (!ok) return;
+  const lines = [
+    'Hi Co-orbit, I would like to reserve a space at Kakkanad.',
+    'Space: '+val('fSpace'),
+    'Name: '+val('fName'),
+    'Phone: '+val('fPhone'),
+    em ? 'Email: '+em : '',
+    val('fCompany') ? 'Company: '+val('fCompany') : '',
+    'Team size: '+val('fTeam'),
+    'Planning to start: '+val('fStart'),
+    val('fDate') ? 'Preferred visit day: '+val('fDate') : '',
+    val('fMsg') ? 'Notes: '+val('fMsg') : ''
+  ].filter(Boolean);
+  const text = lines.join('\n');
+  $('#waLink').href = 'https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(text);
+  $('#mailLink').href = 'mailto:'+CONFIG.email+'?subject='+encodeURIComponent('Space request: '+val('fSpace'))+'&body='+encodeURIComponent(text);
+  $('#copyBtn').onclick = function(){ try { navigator.clipboard.writeText(text).then(function(){ $('#copyBtn').textContent='Copied'; }, function(){ $('#copyBtn').textContent='Copy blocked'; }); } catch(err){ $('#copyBtn').textContent='Copy blocked'; } };
+  $('#resultMsg').textContent = 'Your request is ready. Send it on WhatsApp or by email to reach the team, or call +91 80892 92421.';
+  $('#result').classList.add('show');
+  if (CONFIG.endpoint) {
+    fetch(CONFIG.endpoint, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({space:val('fSpace'), name:val('fName'), phone:val('fPhone'), email:em, company:val('fCompany'), team:val('fTeam'), start:val('fStart'), date:val('fDate'), message:val('fMsg'), source:'Landing page'})})
+      .then(function(){ $('#resultMsg').textContent = 'Thanks, we have your request and will reply shortly. You can also send it on WhatsApp or email below.'; }).catch(function(){});
+  }
+  $('#result').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
+});
+</script>
+</body>
+</html>
